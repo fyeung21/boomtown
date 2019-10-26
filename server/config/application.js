@@ -45,7 +45,7 @@ module.exports = (app) => {
    *  For example: app.set('PG_HOST', process.env.PG_HOST || 'localhost')
    */
 
-  app.set('PORT', process.env.PORT || '5432');
+  app.set('PORT', PORT);
   app.set('PG_HOST', process.env.PG_HOST || 'localhost');
   app.set('PG_USER', process.env.PG_USER || 'fiona');
   app.set('PG_PASSWORD', process.env.PG_PASSWORD || '');
