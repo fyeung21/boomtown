@@ -14,8 +14,24 @@ const { GraphQLScalarType } = require('graphql');
  */
 
 // @TOOD: Refactor this into a custom DATE scalar type using new GraphQLScalarType()
-const DateScalar = undefined;
-// -------------------------------
+const DateScalar = {
+  Date: new GraphQLScalarType({
+    name: 'Date',
+    description: 'Date custom type for "date created" in an item listing',
+    parseValue(value) {
+      return new Date(value); // value from the client
+    },
+    serialize(value) {
+      return value.getTime(); // value sent to the client
+    },
+    parseLiteral(ast) {
+      if (ast.kind === Kind.INT) {
+        return new Date(ast.value); // ast is a string
+      }
+      return null;
+    }
+  })
+};
 
 module.exports = {
   DateScalar
