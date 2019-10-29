@@ -12,6 +12,9 @@ const postgres = initDB(app);
 let pgResource = require('./api/pg-resource');
 pgResource = pgResource(postgres);
 
+const initApollo = require('./config/apollo');
+initApollo({ app, pgResource });
+
 /**
  * @TODO: Initialize Apollo Server
  *
@@ -20,8 +23,8 @@ pgResource = pgResource(postgres);
  *
  *  Uncomment the following lines when you're ready to start Apollo:
  *
- *  const initApollo = require('./config/apollo')
- *  initApollo({ app, pgResource })
+ *  
+ *  
  */
 
 postgres.on('error', (err, client) => {
@@ -31,15 +34,16 @@ postgres.on('error', (err, client) => {
 
 const server = app.listen(PORT, () => {
   console.log(`>> ${chalk.blue('Express running:')} http://localhost:${PORT}`);
+  console.log(
+    `>> ${chalk.magenta('GraphQL playground:')} http://localhost:${PORT}/graphql`
+  );
 
   /**
    *  @TODO: Initialize Apollo Server
    *
    *   Uncomment the following lines when you're ready to start Apollo:
    *
-   *   console.log(
-   *     `>> ${chalk.magenta('GraphQL playground:')} http://localhost:${PORT}/graphql`
-   *   );
+   *   
    */
 });
 

@@ -61,7 +61,7 @@ module.exports = postgres => {
        */
 
       const findUserQuery = {
-        text: "", // @TODO: Basic queries
+        text: "SELECT * FROM users WHERE id = $1", // @TODO: Basic queries
         values: [id],
       };
 
@@ -75,7 +75,7 @@ module.exports = postgres => {
        */
 
       const user = await postgres.query(findUserQuery);
-      return user;
+      return user.rows[0];
       // -------------------------------
     },
     async getItems(idToOmit) {
@@ -92,7 +92,7 @@ module.exports = postgres => {
          *  to your query text using string interpolation
          */
 
-        text: ``,
+        text: `SELECT * FROM items ${idToOmit ? `WHERE "ownerID" !== $1`: ``}`,
         values: idToOmit ? [idToOmit] : [],
       });
       return items.rows;
@@ -103,7 +103,7 @@ module.exports = postgres => {
          *  @TODO:
          *  Get all Items for user using their id
          */
-        text: ``,
+        text: `SELECT "ownerID", title FROM items ORDER BY "ownerID"`,
         values: [id],
       });
       return items.rows;
@@ -114,13 +114,13 @@ module.exports = postgres => {
          *  @TODO:
          *  Get all Items borrowed by user using their id
          */
-        text: ``,
+        text: `SELECT items."borrowerID", items.id, items.title FROM items ORDER BY items."borrowerID"`,
         values: [id],
       });
       return items.rows;
     },
     async getTags() {
-      const tags = await postgres.query(/* @TODO: Basic queries */);
+      const tags = await postgres.query(`SELECT * FROM tags`);
       return tags.rows;
     },
     async getTagsForItem(id) {
