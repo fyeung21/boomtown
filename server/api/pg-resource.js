@@ -103,7 +103,7 @@ module.exports = postgres => {
          *  @TODO:
          *  Get all Items for user using their id
          */
-        text: `SELECT "ownerID", title FROM items ORDER BY "ownerID"`,
+        text: `SELECT "ownerID", title FROM items WHERE "ownerID" = $1`,
         values: [id],
       });
       return items.rows;
@@ -114,7 +114,7 @@ module.exports = postgres => {
          *  @TODO:
          *  Get all Items borrowed by user using their id
          */
-        text: `SELECT items."borrowerID", items.id, items.title FROM items ORDER BY items."borrowerID"`,
+        text: `SELECT "borrowerID", title FROM items WHERE "borrowerID" = $1`,
         values: [id],
       });
       return items.rows;
@@ -125,7 +125,7 @@ module.exports = postgres => {
     },
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: ``, // @TODO: Advanced query Hint: use INNER JOIN
+        text: `SELECT "itemID", "tagID" FROM "itemTags" WHERE "itemID" = 1`, // @TODO: Advanced query Hint: use INNER JOIN
         values: [id],
       };
 
