@@ -12,18 +12,24 @@ const relationResolvers = {
      *  Items (GraphQL type) the user has lent (items) and borrowed (borrowed).
      *
      */
-    // @TODO: Uncomment these lines after you define the User type with these fields
-    // items() {
-    //   // @TODO: Replace this mock return statement with the correct items from Postgres
-    //   return []
-    //   // -------------------------------
-    // },
-    // borrowed() {
-    //   // @TODO: Replace this mock return statement with the correct items from Postgres
-    //   return []
-    //   // -------------------------------
-    // }
-    // -------------------------------
+     async items(parent, args, {pgResource}) {
+      try {
+        const userLendsItem = await pgResource.getItemsForUser(parent.id);
+        return userLendsItem;
+
+      } catch (e) {
+        throw new ApolloError(e);
+      }
+    },
+    async borrowed(parent, args, {pgResource}) {
+      try {
+        const userBorrowsItem = await pgResource.getBorrowedItemsForUser(parent.id);
+        return userBorrowsItem;
+        
+      } catch (e) {
+        throw new ApolloError(e);
+      }
+     }
   },
 
   Item: {
