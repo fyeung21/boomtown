@@ -9,7 +9,7 @@ module.exports = postgres => {
   return {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
-        text: "", // @TODO: Authentication - Server
+        text: `INSERT INTO users ("fullname", "email", "password") VALUES ($1, $2, $3)`, // @TODO: Authentication - Server
         values: [fullname, email, password],
       };
       try {
@@ -28,7 +28,7 @@ module.exports = postgres => {
     },
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
-        text: "", // @TODO: Authentication - Server
+        text: `SELECT * FROM users WHERE email = $1`, // @TODO: Authentication - Server
         values: [email],
       };
       try {
@@ -103,7 +103,7 @@ module.exports = postgres => {
          *  @TODO:
          *  Get all Items for user using their id
          */
-        text: `SELECT "ownerID", title FROM items WHERE "ownerID" = $1`,
+        text: `SELECT * FROM items WHERE "ownerID" = $1`,
         values: [id],
       });
       return items.rows;
@@ -114,7 +114,7 @@ module.exports = postgres => {
          *  @TODO:
          *  Get all Items borrowed by user using their id
          */
-        text: `SELECT "borrowerID", title FROM items WHERE "borrowerID" = $1`,
+        text: `SELECT * FROM items WHERE "borrowerID" = $1`,
         values: [id],
       });
       return items.rows;
@@ -125,7 +125,7 @@ module.exports = postgres => {
     },
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: `SELECT "itemID", "tagID" FROM "itemTags" WHERE "itemID" = 1`, // @TODO: Advanced query Hint: use INNER JOIN
+        text: `SELECT * FROM "itemTags" INNER JOIN tags on "itemTags"."tagID" = tags.id WHERE "itemID" = $1`, // @TODO: Advanced query Hint: use INNER JOIN
         values: [id],
       };
 

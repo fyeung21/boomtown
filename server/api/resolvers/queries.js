@@ -32,7 +32,8 @@ const queryResolvers = app => ({
     try {
       const items = await pgResource.getItems(args.filter);
       console.log(items)
-      items.itemowner = items.ownerID
+      items.itemowner = items.ownerID;
+      items.imageurl = items.imageURL;
       return items;
     } catch (e) {
       throw new ApolloError(e);
