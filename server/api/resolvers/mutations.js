@@ -64,7 +64,10 @@ const mutationResolvers = app => ({
        * and store that instead. The password can be decoded using the original password.
        */
       // @TODO: Use bcrypt to generate a cryptographic hash to conceal the user's password before storing it.
-      const hashedPassword = "";
+      let plainTextPassword = "password";
+      let saltRounds = 10;
+
+      const hashedPassword = bcrypt.hashSync(plainTextPassword, saltRounds);
       // -------------------------------
 
       const user = await context.pgResource.createUser({
@@ -130,11 +133,23 @@ const mutationResolvers = app => ({
     }
   },
 
-  logout(parent, args, context) {
+  logout(
+    parent,
+    args,
+    context
+  ) {
     context.req.res.clearCookie(app.get("JWT_COOKIE_NAME"));
     return true;
   },
-  async addItem(parent, args, context, info) {
+  async addItem(
+    parent,
+    args,
+    {
+      newItem: { item, user }
+    },
+    context,
+    info
+  ) {
     /**
      *  @TODO: Destructuring
      *
