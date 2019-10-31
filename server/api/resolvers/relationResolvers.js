@@ -12,24 +12,24 @@ const relationResolvers = {
      *  Items (GraphQL type) the user has lent (items) and borrowed (borrowed).
      *
      */
-     async items(parent, args, {pgResource}) {
+    async items(parent, args, { pgResource }) {
       try {
-        const userLendsItem = await pgResource.getItemsForUser(parent.id);
-        return userLendsItem;
+        const itemsLentByUser = await pgResource.getItemsForUser(parent.id);
+        return itemsLentByUser;
 
       } catch (e) {
         throw new ApolloError(e);
       }
     },
-    async borrowed(parent, args, {pgResource}) {
+    async borrowed(parent, args, { pgResource }) {
       try {
-        const userBorrowsItem = await pgResource.getBorrowedItemsForUser(parent.id);
-        return userBorrowsItem;
-        
+        const itemsBorrowedByUser = await pgResource.getBorrowedItemsForUser(parent.borrowerID);
+        return itemsBorrowedByUser;
+
       } catch (e) {
         throw new ApolloError(e);
       }
-     }
+    }
   },
 
   Item: {
@@ -43,31 +43,36 @@ const relationResolvers = {
      * a User (GraphQL type) and tags should return a list of Tags (GraphQL type)
      *
      */
-    // @TODO: Uncomment these lines after you define the Item type with these fields
-    // async itemowner() {
-    //   // @TODO: Replace this mock return statement with the correct user from Postgres
-    //   return {
-    //     id: 29,
-    //     fullname: "Mock user",
-    //     email: "mock@user.com",
-    //     bio: "Mock user. Remove me."
-    //   }
-    //   // -------------------------------
-    // },
-    // async tags() {
-    //   // @TODO: Replace this mock return statement with the correct tags for the queried Item from Postgres
-    //   return []
-    //   // -------------------------------
-    // },
-    // async borrower() {
-    //   /**
-    //    * @TODO: Replace this mock return statement with the correct user from Postgres
-    //    * or null in the case where the item has not been borrowed.
-    //    */
-    //   return null
-    //   // -------------------------------
-    // }
-    // -------------------------------
+    async itemowner() {
+      try {
+        const itemOwner = await pgResource.getUserById(parent.ownerID);
+        return itemOwner;
+
+      } catch (e) {
+        throw new ApolloError(e);
+      }
+    },
+    async tags() {
+      try {
+        const tagsForItem = await pgResource.getTagsForItem(parent.id);
+        return tagsForItem;
+
+      } catch (e) {
+        throw new ApolloError(e);
+      }
+    },
+    async borrower() {
+      try {
+        if (parent.id) {
+          const borrowerForItem = await pgResource.getUserById(parent.borrowerID);
+          return borrowerForItem;
+        } else {
+          return null;
+        }
+      } catch (e) {
+        throw new ApolloError(e);
+      }
+    }
   }
 };
 
