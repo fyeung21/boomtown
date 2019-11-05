@@ -12,18 +12,18 @@ const relationResolvers = {
      *  Items (GraphQL type) the user has lent (items) and borrowed (borrowed).
      *
      */
-    async items(parent, args, { pgResource }) {
+    async items({ id }, args, { pgResource }) {
       try {
-        const itemsLentByUser = await pgResource.getItemsForUser(parent.id);
+        const itemsLentByUser = await pgResource.getItemsForUser(id);
         return itemsLentByUser;
 
       } catch (e) {
         throw new ApolloError(e);
       }
     },
-    async borrowed(parent, args, { pgResource }) {
+    async borrowed({ borrowerID }, args, { pgResource }) {
       try {
-        const itemsBorrowedByUser = await pgResource.getBorrowedItemsForUser(parent.borrowerID);
+        const itemsBorrowedByUser = await pgResource.getBorrowedItemsForUser(borrowerID);
         return itemsBorrowedByUser;
 
       } catch (e) {
@@ -43,28 +43,29 @@ const relationResolvers = {
      * a User (GraphQL type) and tags should return a list of Tags (GraphQL type)
      *
      */
-    async itemowner() {
+    async itemowner({ ownerID }, args, { pgResource }) {
       try {
-        const itemOwner = await pgResource.getUserById(parent.ownerID);
+        const itemOwner = await pgResource.getUserById(ownerID);
+        itemOwner.fullname = itemOwner.username
         return itemOwner;
 
       } catch (e) {
         throw new ApolloError(e);
       }
     },
-    async tags() {
+    async tags({ id }, args, { pgResource }) {
       try {
-        const tagsForItem = await pgResource.getTagsForItem(parent.id);
+        const tagsForItem = await pgResource.getTagsForItem(id);
         return tagsForItem;
 
       } catch (e) {
         throw new ApolloError(e);
       }
     },
-    async borrower() {
+    async borrower({ borrowerID }, args, { pgResource }) {
       try {
-        if (parent.id) {
-          const borrowerForItem = await pgResource.getUserById(parent.borrowerID);
+        if (borrowerID) {
+          const borrowerForItem = await pgResource.getUserById(borrowerID);
           return borrowerForItem;
         } else {
           return null;

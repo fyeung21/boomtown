@@ -61,7 +61,7 @@ module.exports = postgres => {
        */
 
       const findUserQuery = {
-        text: "SELECT * FROM users WHERE id = $1", // @TODO: Basic queries
+        text: `SELECT * FROM users WHERE id = $1`, // @TODO: Basic queries
         values: [id],
       };
 
@@ -169,7 +169,7 @@ module.exports = postgres => {
                 text: `INSERT INTO items ("title", "description", "imageURL", "ownerID", "borrowerID") VALUES ($1, $2, $3, $4, $5) RETURNING *`,
                 values: [title, description, imageURL, ownerID, borrowerID]
               };
-              const newItem = await postgres.query(itemQuery);
+              const newItem = await client.query(itemQuery);
 
               // Generate tag relationships query (use the'tagsQueryString' helper function provided)
               const itemTagQuery = {
@@ -177,7 +177,8 @@ module.exports = postgres => {
               text: `INSERT INTO itemtags ("tagID", "itemID") VALUES ${tagsQueryString(tags, itemid, result)}) `,
                 values: [tagID, itemID]
               };
-              const addItemTag = await postgres.query(itemTagQuery);
+              // console.log(itemTagQuery);
+              await client.query(itemTagQuery);
 
               // Commit the entire transaction!
               client.query("COMMIT", err => {
@@ -187,7 +188,6 @@ module.exports = postgres => {
                 // release the client back to the pool
                 done();
                 resolve(newItem.rows[0])
-                resolve(addItemTag.rows)
               });
             });
           } catch (e) {

@@ -143,10 +143,7 @@ const mutationResolvers = app => ({
   },
   async addItem(
     parent,
-    args,
-    {
-      newItem: { item, user }
-    },
+    {item},
     context,
     info
   ) {
@@ -162,9 +159,9 @@ const mutationResolvers = app => ({
      *  Again, you may look at the user resolver for an example of what
      *  destructuring should look like.
      */
-    const user1 = await jwt.decode(context.token, app.get("JWT_SECRET"));
+    const user = await jwt.decode(context.token, app.get("JWT_SECRET"));
     const newItem = await context.pgResource.saveNewItem({
-      item: args.item,
+      item,
       user,
     });
     return newItem;
