@@ -9,7 +9,7 @@ module.exports = postgres => {
   return {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
-        text: `INSERT INTO users ("fullname", "email", "password") VALUES ($1, $2, $3)`, // @TODO: Authentication - Server
+        text: `INSERT INTO users ("username", "email", "password") VALUES ($1, $2, $3) RETURNING *`, // @TODO: Authentication - Server
         values: [fullname, email, password],
       };
       try {
@@ -166,18 +166,17 @@ module.exports = postgres => {
               // Generate new Item query
               const itemQuery = {
                 // Insert new Item
-                text: `INSERT INTO items ("title", "description", "imageURL", "ownerID", "borrowerID") VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-                values: [title, description, imageURL, ownerID, borrowerID]
+                text: `INSERT INTO items ("title", "description", "ownerID") VALUES ($1, $2, $3) RETURNING *`,
+                values: [title, description, user.id]
               };
               const newItem = await client.query(itemQuery);
-
+              const newItemID = newItem.rows[0].id;
               // Generate tag relationships query (use the'tagsQueryString' helper function provided)
               const itemTagQuery = {
               // Insert tags
-              text: `INSERT INTO itemtags ("tagID", "itemID") VALUES ${tagsQueryString(tags, itemid, result)}) `,
-                values: [tagID, itemID]
+              text: `INSERT INTO "itemTags" ("tagID", "itemID") VALUES ${tagsQueryString(tags, newItemID, "")}`,
+                values: tags.map(tag => {return tag.id})
               };
-              // console.log(itemTagQuery);
               await client.query(itemTagQuery);
 
               // Commit the entire transaction!
