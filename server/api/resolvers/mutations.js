@@ -12,7 +12,7 @@ function setCookie({ tokenName, token, res }) {
 }
 
 function generateToken(user, secret) {
-  const { id, email, fullname } = user; // Omit the password from the token
+  const { id, email, fullname } = user; 
   return jwt.sign({ id, email, fullname}, secret, {expiresIn: "2h"});
 }
 
