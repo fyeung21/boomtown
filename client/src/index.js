@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 // import { Provider as ReduxProvider } from 'react-redux'
 // -------------------------------
 
+import ItemPreviewProvider from './context/ItemProvider';
 import registerServiceWorker from './registerServiceWorker';
 import theme from './theme';
 
@@ -29,10 +30,10 @@ import theme from './theme';
  * Uncomment the following line when your routes are configured
  */
 import AppRoutes from './routes'
- /*
- * Below in your <App />, nest your <AppRoutes /> inside of <BrowserRouter />
- * component to enable routing in your client app.
- */
+/*
+* Below in your <App />, nest your <AppRoutes /> inside of <BrowserRouter />
+* component to enable routing in your client app.
+*/
 
 /**
  * @TODO: Initialize Redux Store
@@ -66,9 +67,12 @@ import Routes from './routes';
 const App = () => {
   return (
     <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      {/* <Home /> */}
-      <Routes />
+      <ItemPreviewProvider>
+        <BrowserRouter>
+          <CssBaseline />
+          <Routes />
+        </BrowserRouter>
+      </ItemPreviewProvider>
     </MuiThemeProvider>
   );
 };
