@@ -26,14 +26,7 @@ class AccountForm extends Component {
   }
   render() {
     const { classes, signup, login } = this.props;
-    const submitForm = (values) => {
-      console.log(values);
-    }
 
-
-    // const validate = (values) => {
-    //   console.log(values);
-    // }
     return (
       <Form
         onSubmit={(values) => {
@@ -45,7 +38,7 @@ class AccountForm extends Component {
           if (this.state.formToggle) {
             login(logValues);
           } else {
-            console.log('signup');
+            signup(logValues);
           }
         }}
         render={({ input, meta, handleSubmit }) => (
@@ -93,11 +86,10 @@ class AccountForm extends Component {
             <FormControl fullWidth className={classes.formControl}>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Field
-                name="password" render={({ input, meta }) => (
+                name="password" type="password" render={({ input, meta }) => (
                   <div>
                     <Input
                       id="password"
-                      type="password"
                       inputProps={{
                         ...input,
                         autoComplete: 'off'
