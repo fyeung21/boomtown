@@ -4,6 +4,7 @@ const { AuthDirective } = require("../api/custom-directives");
 
 const typeDefs = require("../api/schema");
 let resolvers = require("../api/resolvers");
+const jwt = require("jsonwebtoken");
 
 module.exports = ({ app, pgResource }) => {
   resolvers = resolvers(app);
@@ -33,6 +34,7 @@ module.exports = ({ app, pgResource }) => {
           user
         }
       } catch (e) {
+        console.log("error in context", e)
       }
     },
     schema,
@@ -40,6 +42,6 @@ module.exports = ({ app, pgResource }) => {
 
   apolloServer.applyMiddleware({
     app,
-    cors: undefined,
+    cors: app.get('CORS_CONFIG'),
   });
 };

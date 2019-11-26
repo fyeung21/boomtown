@@ -80,18 +80,8 @@ export const ADD_ITEM_MUTATION = gql`
   mutation addItem($item: NewItemInput!) {
     addItem (item: $item) {
       id
-      title
-      description
-      tags {
-        id
-        title
-      }
-      imageurl
-    }
-    # @TODO: Pass the item and image into the addItem mutation as arguments
-    # and return the new item id when the mutation is complete.   
+    }  
   }
-  # $newItem
 `;
 
 /**
@@ -99,12 +89,12 @@ export const ADD_ITEM_MUTATION = gql`
  */
 
 export const VIEWER_QUERY = gql`
-  query {
-    user {
-      id
-    email
-    fullname
-    bio
+  query viewer {
+    viewer {
+        id
+        fullname
+        email
+        bio
     }
   }
 `;

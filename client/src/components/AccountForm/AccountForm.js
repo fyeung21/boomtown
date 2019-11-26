@@ -25,16 +25,29 @@ class AccountForm extends Component {
     };
   }
   render() {
-    const { classes } = this.props;
+    const { classes, signup, login } = this.props;
     const submitForm = (values) => {
       console.log(values);
     }
+
+
     // const validate = (values) => {
     //   console.log(values);
     // }
     return (
       <Form
-        onSubmit={submitForm}
+        onSubmit={(values) => {
+          const logValues = {
+            variables: {
+              user: values
+            }
+          }
+          if (this.state.formToggle) {
+            login(logValues);
+          } else {
+            console.log('signup');
+          }
+        }}
         render={({ input, meta, handleSubmit }) => (
 
           <form onSubmit={handleSubmit}
@@ -49,10 +62,10 @@ class AccountForm extends Component {
                         id="fullname"
                         type="text"
                         inputProps={{
+                          ...input,
                           autoComplete: 'off'
                         }}
-                        value={''}
-                      // onchange={this.handleChange}
+                        value={input.value}
                       />
                     </div>
                   )}
@@ -68,9 +81,10 @@ class AccountForm extends Component {
                       id="email"
                       type="text"
                       inputProps={{
+                        ...input,
                         autoComplete: 'off'
                       }}
-                      value={''}
+                      value={input.value}
                     />
                   </div>
                 )}
@@ -85,9 +99,10 @@ class AccountForm extends Component {
                       id="password"
                       type="password"
                       inputProps={{
+                        ...input,
                         autoComplete: 'off'
                       }}
-                      value={''}
+                      value={input.value}
                     />
                   </div>
                 )}
@@ -131,7 +146,6 @@ class AccountForm extends Component {
               </Grid>
             </FormControl>
             <Typography className={classes.errorMessage}>
-              {/* @TODO: Display sign-up and login errors */}
               {this.state.error ? 'sign in' : 'cannot login'}
             </Typography>
           </form >
@@ -145,20 +159,20 @@ class AccountForm extends Component {
 // export default withStyles(styles)(AccountForm);
 export default compose(
   graphql(SIGNUP_MUTATION, {
-  options: {
-    query: {
-      VIEWER_QUERY,
+    options: {
+      query: {
+        VIEWER_QUERY,
+      }
     },
     name: 'signup',
-  }
-}),
+  }),
   graphql(LOGIN_MUTATION, {
-  options: {
-    query: {
-      VIEWER_QUERY,
+    options: {
+      query: {
+        VIEWER_QUERY,
+      }
     },
     name: 'login',
-  }
-}),
+  }),
   withStyles(styles)
 )(AccountForm);

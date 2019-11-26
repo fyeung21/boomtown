@@ -62,6 +62,7 @@ const mutationResolvers = app => ({
     { pgResource, req },
   ) {
     try {
+      console.log("someone is trying to log in");
       const user = await pgResource.getUserAndPasswordForVerification(
         email
       );
@@ -69,6 +70,7 @@ const mutationResolvers = app => ({
 
       const valid = await bcrypt.compare(password, user.password);
       if (!valid) throw "Invalid Password";
+      user.fullname = user.username;
 
       const token = generateToken(user, app.get("JWT_SECRET"));
 
@@ -78,7 +80,6 @@ const mutationResolvers = app => ({
         res: req.res,
       });
 
-      user.fullname = user.username;
 
       return {
         token,

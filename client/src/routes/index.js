@@ -1,41 +1,42 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { BrowserRouter as Router } from "react-router-dom";
 import Home from '../pages/Home';
 import Items from '../pages/Items';
 import Share from '../pages/Share';
 import Profile from '../pages/Profile';
+import ViewerContext from '../context/ViewerProvider';
 
 
 const Routes = () => {
   return (
-    <Router>
-      <Switch>
-        {/**
-       * @TODO: Define routes here for: /items, /profile, /profile/:userid, and /share
-       *
-       * Provide a wildcard redirect to /items for any undefined route using <Redirect />.
-       *
-       * Later, we'll add logic to send users to one set of routes if they're logged in,
-       * or only view the /welcome page if they are not.
-       */}
-        <Route path="/welcome" component={Home} />
-        <Route path="/items" component={Items} />
-        <Route path="/share" component={Share} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/profile/:userid" component={Profile} />
-        <Redirect from="/" to="/items" />
-        {/* <Route render={() => (
-        loggedIn ? (
-          <Redirect to="/profile/[ID_here]" />
-        ) : (
-          <Redirect to="/welcome" />
-            <LoginForm />
+    <ViewerContext.Consumer>
+      {({ viewer, loading }) => {
+        console.log("viewer consumer", viewer, loading);
+        if (loading) return null;
+        if (!viewer) {
+          return (
+            <Switch>
+              <Route path="/welcome" component={Home} />
+              <Redirect from="*" to="/welcome" />
+            </Switch>
           )
-      )
-      } /> */}
-      </Switch>
-    </Router>
+        } else {
+          return (
+            <Fragment>
+              <Switch>
+                <Route path="/items" component={Items} />
+                <Route path="/share" component={Share} />
+                <Route path="/profile" component={Profile} />
+                <Route path="/profile/:userid" component={Profile} />
+                <Redirect from="*" to="/items" />
+              </Switch>
+            </Fragment>
+          )
+        }
+      }}
+    </ViewerContext.Consumer>
+
   )
 }
 

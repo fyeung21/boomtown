@@ -16,10 +16,10 @@ const ViewerProvider = ({ children }) => {
   return <Query query={VIEWER_QUERY}>
     {({ data, loading }) => {
 
-      data = data ? data.viewer : null;
-
+      const viewer = data ? data.viewer : null;
+      console.log("viewer", viewer)
       return (
-        <ViewerContext.Provider value={( data, loading )}>
+        <ViewerContext.Provider value={{ viewer, loading }}>
           {children}
         </ViewerContext.Provider>
       );

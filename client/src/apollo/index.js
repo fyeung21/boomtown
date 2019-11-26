@@ -6,7 +6,7 @@ import { onError } from 'apollo-link-error';
 
 const httpLink = createHttpLink({
   includeExtensions: true,
-  uri: 'http://localhost8000/graphql',
+  uri: process.env.NODE_ENV !== 'production' && 'http://localhost:8080/graphql' ,
   credentials: process.env.NODE_ENV === 'production' ? 'same-origin' : 'include'
 });
 
@@ -22,12 +22,8 @@ const client = new ApolloClient({
         );
       }
       if (networkError) console.log(`[Network error]: ${networkError}`);
-    })
-    /**
-     * @TODO: Set your httpLink link as the next item in this array.
-     * Read about httpLink here: 
-     * Don't forget to add to add a comma after the first array item above!
-     */
+    }), 
+    httpLink
   ]),
   cache: new InMemoryCache() // Pull data from client-side cache, if available
 });
