@@ -30,6 +30,8 @@ const Routes = () => {
                 <Route path="/profile" component={Profile} />
                 <Route path="/profile/:userid" component={Profile} />
                 <Redirect from="*" to="/items" />
+                <Redirect from="/welcome" to="/items" />
+
               </Switch>
             </Fragment>
           )
