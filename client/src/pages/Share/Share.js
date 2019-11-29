@@ -23,7 +23,7 @@ const Share = ({ classes }) => {
         This is the share page located at <code>/share</code>.
       </p>
       <ShareItemPreview />
-      <Typography variant="h1" className={classes.headline}>
+      <Typography variant="h3" className={classes.headline}>
         Share. Borrow. Prosper.
       </Typography>
       <ShareItemForm />
