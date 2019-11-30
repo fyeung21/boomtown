@@ -4,6 +4,7 @@ import styles from "./styles";
 import ShareItemForm from "../../components/ShareItemForm";
 import ShareItemPreview from "../../components/ShareItemPreview";
 import Typography from "@material-ui/core/Typography";
+import HeaderBar from "../../components/Header/Header";
 /* 
   TODO: Create ShareItemFrom and ShareItemPreview in the components dir
   and call them from this file.
@@ -19,6 +20,7 @@ import Typography from "@material-ui/core/Typography";
 const Share = ({ classes }) => {
   return (
     <div>
+      <HeaderBar />
       <p>
         This is the share page located at <code>/share</code>.
       </p>
