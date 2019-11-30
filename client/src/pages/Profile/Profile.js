@@ -4,10 +4,12 @@ import styles from "./styles";
 import SharePreviewCard from "../../components/ShareItemPreview/SharePreviewCard";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
+import ButtonAppBar from "../../components/Header/Header";
 
 const Profile = ({ classes }) => {
   return (
     <div>
+      <ButtonAppBar />
       <p>
         This is the profile page located at <code>/profile/:userId</code>.
       </p>
