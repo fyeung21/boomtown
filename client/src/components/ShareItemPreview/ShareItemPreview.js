@@ -9,7 +9,16 @@ export class ShareItemPreview extends Component {
   render() {
     return (
       <ItemPreviewContext.Consumer>
-        {({ state }) => <SharePreviewCard />}
+        {({ state }) => {
+          console.log(state);
+          return (
+            <SharePreviewCard
+              title={state.item.title}
+              //   itemowner={state.item.itemowner}
+              description={state.item.description}
+            />
+          );
+        }}
       </ItemPreviewContext.Consumer>
     );
   }
