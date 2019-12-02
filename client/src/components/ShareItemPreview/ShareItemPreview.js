@@ -13,6 +13,7 @@ export class ShareItemPreview extends Component {
           console.log(state);
           return (
             <SharePreviewCard
+              imageurl={state.item.imageurl}
               title={state.item.title}
               //   itemowner={state.item.itemowner}
               description={state.item.description}

@@ -35,7 +35,7 @@ const SharePreviewCard = ({
             {/* Owner Info */}
             <Avatar
               alt="Owner"
-              src="/static/images/avatar/1.jpg"
+              src="https://picsum.photos/id/1011/50"
               className={classes.Avatar}
             />
             <div className={classes.ownerName}>

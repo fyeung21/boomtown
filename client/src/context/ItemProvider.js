@@ -6,7 +6,7 @@ const initialState = {
   title: "Name your item",
   description: "Describe your item",
   tags: [],
-  imageurl: "tinypic.com/324",
+  imageurl: "https://picsum.photos/id/1003/200/300",
   itemowner: {},
   created: new Date()
 };
