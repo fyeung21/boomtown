@@ -1,5 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+import styles from "./styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -8,32 +9,15 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-import Box from "@material-ui/core/Box";
 
 const SharePreviewCard = ({
   imageurl,
   //   itemowner,
   title,
   description,
-  date
+  date,
+  classes
 }) => {
-  const useStyles = makeStyles({
-    card: {
-      width: 410,
-      height: 510,
-      marginRight: 50
-    },
-    media: {
-      height: 140
-    },
-    bigAvatar: {
-      width: 60,
-      height: 60
-    }
-  });
-
-  const classes = useStyles();
-
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -43,37 +27,56 @@ const SharePreviewCard = ({
           image={imageurl}
           title="your image"
         />
-        <CardContent>
-          <Box display="flex">
+      </CardActionArea>
+
+      <CardActionArea>
+        <CardContent className={classes.cardContainer}>
+          <div className={classes.ownerInfo}>
             {/* Owner Info */}
             <Avatar
               alt="Owner"
               src="/static/images/avatar/1.jpg"
-              className={classes.bigAvatar}
+              className={classes.Avatar}
             />
-            <div className="userInfo">
-              <Typography variant="body1" component="h3">
+            <div className={classes.ownerName}>
+              <Typography
+                variant="body1"
+                component="h3"
+                className={classes.text}
+              >
                 itemowner
               </Typography>
-              <Typography variant="body1" color="textSecondary" component="p">
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                component="p"
+                className={classes.text}
+              >
                 {date}date
               </Typography>
             </div>
-          </Box>
+          </div>
 
           {/* Item Info */}
-          <Typography variant="h5" component="h1">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {description}
-          </Typography>
+          <div className={classes.itemInfo}>
+            <Typography variant="h5" component="h1">
+              {title}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {description}
+            </Typography>
+          </div>
         </CardContent>
       </CardActionArea>
 
-      <CardActions>
+      <CardActions className={classes.cardContainer}>
         {/* Borrow Button */}
-        <Button gutterBottom variant="outlined" size="medium" color="primary">
+        <Button
+          variant="outlined"
+          size="medium"
+          color="primary"
+          className={classes.button}
+        >
           Borrow
         </Button>
       </CardActions>
@@ -81,4 +84,4 @@ const SharePreviewCard = ({
   );
 };
 
-export default SharePreviewCard;
+export default withStyles(styles)(SharePreviewCard);
