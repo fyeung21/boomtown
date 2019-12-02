@@ -5,7 +5,8 @@ const styles = theme => ({
     justifyContent: "center"
   },
   shareForm: {
-    flexBasis: 50
+    flexBasis: 50,
+    width: 400
   },
   sharePreview: {
     flexBasis: 50

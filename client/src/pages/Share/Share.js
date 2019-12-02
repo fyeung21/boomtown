@@ -13,9 +13,6 @@ const Share = ({ classes }) => {
       <div className={classes.shareContainer}>
         <ShareItemPreview className={classes.sharePreview} />
         <div className={classes.shareForm}>
-          <Typography variant="h3" className={classes.headline}>
-            Share. Borrow. Prosper.
-          </Typography>
           <ShareItemForm />
         </div>
       </div>

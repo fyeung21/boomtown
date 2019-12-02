@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import { ItemPreviewContext } from "../../context/ItemProvider";
 import { withStyles } from "@material-ui/core/styles";
-import { Form } from "react-final-form";
-import { Field } from "react-final-form";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Checkbox from "@material-ui/core/Checkbox";
+import styles from "./styles";
+import { Form, Field } from "react-final-form";
+import {
+  Input,
+  InputLabel,
+  Button,
+  FormControl,
+  TextField,
+  MenuItem,
+  Typography,
+  Checkbox
+} from "@material-ui/core";
 
 const tags = [
   {
@@ -79,20 +82,32 @@ class ShareForm extends Component {
               <form onSubmit={handleSubmit}>
                 {/* className={classes.shareItemForm} */}
 
+                <Typography variant="h4" className={classes.headText}>
+                  Share. Borrow. Prosper.
+                </Typography>
+
                 {/* {!this.state.formToggle && ( */}
+
+                {/* Image Upload*/}
                 <input
                   accept="image/*"
-                  // className={classes.input}
-                  id="uploadImage"
+                  className={classes.imageInput}
+                  id="contained-button-file"
                   multiple
                   type="file"
                 />
-                <label htmlFor="uploadImage">
-                  <Button variant="contained" color="yellow" component="span">
+                <label htmlFor="contained-button-file">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    className={classes.selectImage}
+                  >
                     SELECT AN IMAGE
                   </Button>
                 </label>
 
+                {/* Item Name */}
                 <FormControl fullWidth>
                   <InputLabel htmlFor="itemName">Name your Item</InputLabel>
                   <Field
@@ -102,6 +117,7 @@ class ShareForm extends Component {
                         <Input
                           id="itemName"
                           type="text"
+                          className={classes.fieldLength}
                           inputProps={{
                             ...input,
                             autoComplete: "off"
@@ -112,6 +128,8 @@ class ShareForm extends Component {
                     )}
                   />
                 </FormControl>
+
+                {/* Item Description */}
                 <FormControl fullWidth>
                   <InputLabel htmlFor="itemDesc">Describe your Item</InputLabel>
                   <Field
@@ -121,6 +139,7 @@ class ShareForm extends Component {
                         <Input
                           id="itemDesc"
                           type="text"
+                          className={classes.fieldLength}
                           inputProps={{
                             ...input,
                             autoComplete: "off"
@@ -131,29 +150,13 @@ class ShareForm extends Component {
                     )}
                   />
                 </FormControl>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="itemTags">Add some Tags</InputLabel>
-                  <Field
-                    name="itemTags"
-                    render={({ input, meta }) => (
-                      <div>
-                        <Input
-                          id="itemTags"
-                          type="text"
-                          inputProps={{
-                            ...input,
-                            autoComplete: "off"
-                          }}
-                          value={input.value}
-                        />
-                      </div>
-                    )}
-                  />
-                </FormControl>
+
+                {/* Add Tags */}
                 <TextField
                   // id="addTags"
                   select
-                  label="Select"
+                  label="Add some Tags"
+                  className={classes.fieldLength}
                   // className={classes.textField}
                   // value={addTag}
                   // onChange={handleChange}
@@ -172,7 +175,15 @@ class ShareForm extends Component {
                   ))}
                 </TextField>
                 {/* )} // for using state */}
-                <Button variant="contained">SHARE</Button>
+
+                {/* Share Button */}
+                <Button
+                  variant="contained"
+                  color="text-secondary"
+                  size="medium"
+                >
+                  SHARE
+                </Button>
               </form>
             )}
           />
@@ -181,4 +192,4 @@ class ShareForm extends Component {
     );
   }
 }
-export default ShareForm;
+export default withStyles(styles)(ShareForm);
