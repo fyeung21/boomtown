@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -7,53 +7,49 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
+import BoomtownLogo from "../../images/boomtown.svg";
+import styles from "./styles";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  homeButton: {
-    flexGrow: 1
-  }
-}));
-
-export default function HeaderBar() {
-  const classes = useStyles();
-
+const HeaderBar = ({ classes }) => {
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.homeButton}
-            color="inherit"
-            aria-label="home"
-          ></IconButton>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="share something"
-          >
-            <AddCircleRoundedIcon />
-            <Typography variant="body1" component="p">
-              SHARE SOMETHING
-            </Typography>
-          </IconButton>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MoreVertIcon />
-          </IconButton>
+        <Toolbar className={classes.root}>
+          <div>
+            <IconButton
+              edge="start"
+              className={classes.homeButton}
+              color="inherit"
+              aria-label="home"
+            >
+              <img src={BoomtownLogo} className={classes.siteLogo} />
+            </IconButton>
+          </div>
+          <div className={classes.leftOptions}>
+            <IconButton
+              edge="start"
+              className={classes.shareSomething}
+              color="inherit"
+              aria-label="share something"
+            >
+              <AddCircleRoundedIcon className={classes.circleIcon} />
+              <Typography variant="body1" component="p">
+                SHARE SOMETHING
+              </Typography>
+            </IconButton>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <MoreVertIcon />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
+
+export default withStyles(styles)(HeaderBar);
