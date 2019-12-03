@@ -1,44 +1,50 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
-import SharePreviewCard from "../../components/ShareItemPreview/SharePreviewCard";
-import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
 import HeaderBar from "../../components/Header/Header";
+import ItemCard from "../../components/ItemCard/ItemCard";
+import { Typography, Avatar, Card, CardContent } from "@material-ui/core";
 
 const Profile = ({ classes }) => {
   return (
-    <div>
+    <div className={classes.background}>
       <HeaderBar />
-      <p>
-        This is the profile page located at <code>/profile/:userId</code>.
-      </p>
-      <Avatar
-        alt="Owner"
-        src="/static/images/avatar/1.jpg"
-        className={classes.bigAvatar}
-      />
-      <Typography
-        gutterBottom
-        variant="h3"
-        color="textSecondary"
-        component="h3"
-      >
-        Username
-      </Typography>
-      <Typography gutterBottom variant="body1" component="h3">
-        Items Shared
-      </Typography>
-      <Typography gutterBottom variant="body1" component="h3">
-        Items borrowed
-      </Typography>
-      <Typography variant="body1" component="h3">
-        "No bio provided"
-      </Typography>
-      <Typography gutterBottom variant="h4" color="primary" component="h3">
-        Shared Items
-      </Typography>
-      <SharePreviewCard />
+      <Card className={classes.card}>
+        <CardContent>
+          <div className={classes.cardContent}>
+            <div className={classes.flexContainer}>
+              <Avatar
+                alt="Owner"
+                src="https://picsum.photos/id/1011/50"
+                className={classes.Avatar}
+              />
+              <Typography
+                variant="h4"
+                component="h3"
+                className={classes.title}
+                color="textSecondary"
+                gutterBottom
+              >
+                Username
+              </Typography>
+            </div>
+
+            <Typography variant="h6">
+              {"1"} items shared {"0"} items borrowed
+            </Typography>
+
+            <Typography variant="body2" component="p">
+              "{"No bio provided."}"
+            </Typography>
+          </div>
+        </CardContent>
+      </Card>
+      <div className={classes.sharedItems}>
+        <Typography gutterBottom variant="h4" color="primary">
+          Shared Items
+        </Typography>
+        <ItemCard />
+      </div>
     </div>
   );
 };
