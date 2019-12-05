@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ItemPreviewContext } from "../../context/ItemProvider";
 import { withStyles } from "@material-ui/core/styles";
-import SharePreviewCard from "./SharePreviewCard.js";
+import ItemCard from "../ItemCard/ItemCard";
 
 import styles from "./styles";
 
@@ -12,7 +12,7 @@ export class ShareItemPreview extends Component {
         {({ state }) => {
           console.log(state);
           return (
-            <SharePreviewCard
+            <ItemCard
               imageurl={state.item.imageurl}
               title={state.item.title}
               //   itemowner={state.item.itemowner}
