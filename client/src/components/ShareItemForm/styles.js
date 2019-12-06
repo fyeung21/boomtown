@@ -8,9 +8,9 @@ const styles = theme => ({
     marginTop: 20,
     marginBottom: 20
   },
-  imageInput: {
-    display: "none"
-  },
+  // imageInput: {
+  //   display: "none"
+  // },
   selectImage: {
     width: 400,
     marginTop: 70,

@@ -6,8 +6,11 @@ const initialState = {
   title: "Name your item",
   description: "Describe your item",
   tags: [],
-  imageurl: "https://picsum.photos/id/1003/200/300",
-  itemowner: {},
+  imageurl: "https://via.placeholder.com/300?text=Your+Image+Here",
+  itemowner: {
+    fullname: "fio",
+    avatar: "https://picsum.photos/id/1011/50"
+  },
   created: new Date()
 };
 

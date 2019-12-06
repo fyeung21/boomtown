@@ -3,6 +3,7 @@ import { ItemPreviewContext } from "../../context/ItemProvider";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import { Form, Field } from "react-final-form";
+import { ADD_ITEM_MUTATION } from '../../apollo/queries'
 import {
   Input,
   InputLabel,
@@ -64,7 +65,7 @@ class ShareForm extends Component {
     console.log("test");
   }
   render() {
-    const { classes } = this.props;
+    const { classes, addItem } = this.props;
     console.log(classes);
 
     return (
@@ -72,15 +73,20 @@ class ShareForm extends Component {
         {({ state, updatePreview, resetPreview }) => (
           <Form
             onSubmit={values => {
-              const logValues = {
+              const addItemValues = {
                 variables: {
-                  user: values
+                  item: {
+                    title: values.itemTitle,
+                    description: values.itemDesc,
+                    tags: values.tags
+                  }
                 }
               };
+              addItem(addItemValues)
             }}
             render={({ input, meta, handleSubmit }) => (
-              <form onSubmit={handleSubmit}>
-                {/* className={classes.shareItemForm} */}
+              <form onSubmit={handleSubmit}
+                onChange={e => updatePreview(e.target.name, e.target.value)}>
 
                 <Typography variant="h4" className={classes.headText}>
                   Share. Borrow. Prosper.
@@ -89,33 +95,44 @@ class ShareForm extends Component {
                 {/* {!this.state.formToggle && ( */}
 
                 {/* Image Upload*/}
-                <input
-                  accept="image/*"
-                  className={classes.imageInput}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                />
-                <label htmlFor="contained-button-file">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    className={classes.selectImage}
-                  >
-                    SELECT AN IMAGE
-                  </Button>
-                </label>
+                <FormControl>
+                  <Field
+                    name="imageUrl"
+                    render={({ input }) => (
+                      <div>
+                        <input
+                          accept="image/*"
+                          className={classes.imageInput}
+                          id="contained-button-file"
+                          multiple
+                          type="file"
+                          inputProps={{
+                            ...input,
+                            autoComplete: "off"
+                          }}
+                          value={input.value}
+                        />
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          className={classes.selectImage}
+                        >
+                          SELECT AN IMAGE
+                      </Button>
+                      </div>
+                    )}
+                  />
+                </FormControl>
 
                 {/* Item Name */}
                 <FormControl fullWidth>
-                  <InputLabel htmlFor="itemName">Name your Item</InputLabel>
+                  <InputLabel htmlFor="itemTitle">Name your Item</InputLabel>
                   <Field
-                    name="itemName"
+                    name="itemTitle"
                     render={({ input, meta }) => (
                       <div>
                         <Input
-                          id="itemName"
+                          id="itemTitle"
                           type="text"
                           className={classes.fieldLength}
                           inputProps={{
@@ -131,13 +148,13 @@ class ShareForm extends Component {
 
                 {/* Item Description */}
                 <FormControl fullWidth>
-                  <InputLabel htmlFor="itemDesc">Describe your Item</InputLabel>
+                  <InputLabel htmlFor="description">Describe your Item</InputLabel>
                   <Field
-                    name="itemDesc"
+                    name="description"
                     render={({ input, meta }) => (
                       <div>
                         <Input
-                          id="itemDesc"
+                          id="description"
                           type="text"
                           className={classes.fieldLength}
                           inputProps={{
@@ -157,16 +174,15 @@ class ShareForm extends Component {
                   select
                   label="Add some Tags"
                   className={classes.fieldLength}
-                  // className={classes.textField}
-                  // value={addTag}
-                  // onChange={handleChange}
-                  // SelectProps={{
-                  //   MenuProps: {
-                  //     className: classes.menu
-                  //   }
-                  // }}
-                  // helperText="Please select your tags"
-                  // margin="normal"
+                // value={addTag}
+                // onChange={handleChange}
+                // SelectProps={{
+                //   MenuProps: {
+                //     className: classes.menu
+                //   }
+                // }}
+                // helperText="Please select your tags"
+                // margin="normal"
                 >
                   {tags.map(option => (
                     <MenuItem key={option.value} value={option.value}>

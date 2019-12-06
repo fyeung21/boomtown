@@ -11,10 +11,10 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 
 const ItemCard = ({
-  imageurl,
-  //   itemowner,
-  title,
-  description,
+  imageUrl,
+  itemOwner,
+  itemTitle,
+  itemDesc,
   date,
   classes
 }) => {
@@ -24,7 +24,7 @@ const ItemCard = ({
         {/* Card Image */}
         <CardMedia
           className={classes.media}
-          image={imageurl}
+          image={imageUrl}
           title="your image"
         />
       </CardActionArea>
@@ -35,7 +35,7 @@ const ItemCard = ({
             {/* Owner Info */}
             <Avatar
               alt="Owner"
-              src="https://picsum.photos/id/1011/50"
+              src={itemOwner.avatar}
               className={classes.Avatar}
             />
             <div className={classes.ownerName}>
@@ -44,7 +44,7 @@ const ItemCard = ({
                 component="h3"
                 className={classes.text}
               >
-                itemowner
+                {itemOwner.fullname}
               </Typography>
               <Typography
                 variant="body2"
@@ -60,10 +60,10 @@ const ItemCard = ({
           {/* Item Info */}
           <div className={classes.itemInfo}>
             <Typography variant="h5" component="h1">
-              {title}
+              {itemTitle}
             </Typography>
             <Typography variant="body2" component="p">
-              {description}
+              {itemDesc}
             </Typography>
           </div>
         </CardContent>

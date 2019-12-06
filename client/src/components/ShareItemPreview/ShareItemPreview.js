@@ -1,22 +1,21 @@
 import React, { Component } from "react";
-import { ItemPreviewContext } from "../../context/ItemProvider";
-import { withStyles } from "@material-ui/core/styles";
-import ItemCard from "../ItemCard/ItemCard";
-
 import styles from "./styles";
+import { withStyles } from "@material-ui/core/styles";
+import { ItemPreviewContext } from "../../context/ItemProvider";
+import ItemCard from "../ItemCard/ItemCard";
 
 export class ShareItemPreview extends Component {
   render() {
     return (
       <ItemPreviewContext.Consumer>
         {({ state }) => {
-          console.log(state);
           return (
             <ItemCard
-              imageurl={state.item.imageurl}
-              title={state.item.title}
-              //   itemowner={state.item.itemowner}
-              description={state.item.description}
+              imageUrl={state.item.imageurl}
+              itemTitle={state.item.title}
+              itemOwner={state.item.itemowner}
+              itemDesc={state.item.description}
+              itemTags={state.item.tags}
             />
           );
         }}
