@@ -3,9 +3,6 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "space-between"
   },
-  leftOptions: {
-    flex: "flex-end"
-  },
   siteLogo: {
     height: 40
   },
