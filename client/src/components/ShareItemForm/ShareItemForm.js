@@ -3,7 +3,6 @@ import { ItemPreviewContext } from "../../context/ItemProvider";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import { Form, Field } from "react-final-form";
-import { ADD_ITEM_MUTATION } from '../../apollo/queries'
 import {
   Input,
   InputLabel,
@@ -59,7 +58,9 @@ const tags = [
 class ShareForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      value: ''
+    };
   }
   onSubmit() {
     console.log("test");
@@ -76,6 +77,7 @@ class ShareForm extends Component {
               const addItemValues = {
                 variables: {
                   item: {
+                    imageurl: values.imageUrl,
                     title: values.itemTitle,
                     description: values.itemDesc,
                     tags: values.tags
@@ -84,6 +86,7 @@ class ShareForm extends Component {
               };
               addItem(addItemValues)
             }}
+            validate={updatePreview}
             render={({ input, meta, handleSubmit }) => (
               <form onSubmit={handleSubmit}
                 onChange={e => updatePreview(e.target.name, e.target.value)}>
@@ -186,6 +189,7 @@ class ShareForm extends Component {
                 >
                   {tags.map(option => (
                     <MenuItem key={option.value} value={option.value}>
+                      <Checkbox />
                       {option.label}
                     </MenuItem>
                   ))}
