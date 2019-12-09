@@ -6,11 +6,14 @@ const styles = theme => ({
   siteLogo: {
     height: 40
   },
-  circleIcon: {
-    margin: 10
+  icon: {
+    margin: "-5px 10px"
   },
   shareSomething: {
     marginRight: 40
+  },
+  link: {
+    color: 'black'
   }
 });
 

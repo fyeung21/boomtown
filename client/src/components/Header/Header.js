@@ -18,10 +18,6 @@ const HeaderBar = ({ classes }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClick2 = event => {
-    return
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -32,25 +28,26 @@ const HeaderBar = ({ classes }) => {
         <Toolbar className={classes.root}>
           <div>
             {/* Boomtown Home */}
-            <IconButton
-              edge="start"
-              className={classes.homeButton}
-              color="inherit"
-              aria-label="home"
-            >
-              <img src={BoomtownLogo} className={classes.siteLogo} />
-            </IconButton>
+            <Link to="/items" className={classes.link}>
+              <IconButton
+                edge="start"
+                className={classes.homeButton}
+                color="inherit"
+                aria-label="home">
+                <img src={BoomtownLogo} className={classes.siteLogo} />
+              </IconButton>
+            </Link>
           </div>
           <div>
             {/* Share Something */}
-            <Button aria-controls="simple-menu" aria-haspopup="true" className={classes.shareSomething} onClick={handleClick2}>
-              <AddCircleRoundedIcon className={classes.circleIcon} />
-              <Link to="/share">
+            <Link to="/share" className={classes.link}>
+              <Button aria-controls="simple-menu" aria-haspopup="true" className={classes.shareSomething}>
+                <AddCircleRoundedIcon className={classes.icon} />
                 <Typography variant="body1" component="p">
                   SHARE SOMETHING
               </Typography>
-              </Link>
-            </Button>
+              </Button>
+            </Link>
 
             {/* Menu Pop-out */}
             <IconButton
@@ -58,7 +55,8 @@ const HeaderBar = ({ classes }) => {
               color="inherit"
               aria-label="menu"
               onClick={handleClick}
-            ><MoreVertIcon />
+            >
+              <MoreVertIcon />
             </IconButton>
             <Menu
               id="simple-menu"
@@ -67,8 +65,15 @@ const HeaderBar = ({ classes }) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}><Link to="/profile/:userId"><FingerprintIcon />Profile</Link></MenuItem>
-              <MenuItem onClick={handleClose}><PowerSettingsNewIcon />Logout</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link to="/profile/:userId" className={classes.link}>
+                  <FingerprintIcon className={classes.icon} />Profile
+                </Link>
+              </MenuItem>
+
+              <MenuItem onClick={handleClose}>
+                <PowerSettingsNewIcon className={classes.icon} />Logout
+                </MenuItem>
             </Menu>
 
           </div>
