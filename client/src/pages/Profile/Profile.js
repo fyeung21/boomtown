@@ -2,7 +2,6 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import HeaderBar from "../../components/Header/Header";
-import ItemCard from "../../components/ItemCard/ItemCard";
 import { Typography, Avatar, Card, CardContent } from "@material-ui/core";
 
 const Profile = ({ classes }) => {
@@ -43,7 +42,6 @@ const Profile = ({ classes }) => {
         <Typography gutterBottom variant="h4" color="primary">
           Shared Items
         </Typography>
-        <ItemCard />
       </div>
     </div>
   );
