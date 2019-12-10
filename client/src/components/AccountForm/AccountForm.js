@@ -14,7 +14,7 @@ import {
   VIEWER_QUERY
 } from "../../apollo/queries";
 import { graphql, compose } from "react-apollo";
-import validate from "./helpers/validation";
+// import validate from "./helpers/validation";
 
 import styles from "./styles";
 class AccountForm extends Component {
@@ -40,8 +40,9 @@ class AccountForm extends Component {
           } else {
             signup(logValues);
           }
+          this.state.formToggle ? login(logValues) : signup(logValues)
         }}
-        render={({ input, meta, handleSubmit }) => (
+        render={({ input, meta, handleSubmit, pristine, invalid, form }) => (
           <form onSubmit={handleSubmit} className={classes.accountForm}>
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
@@ -53,6 +54,7 @@ class AccountForm extends Component {
                       <Input
                         id="fullname"
                         type="text"
+                        margin="normal"
                         inputProps={{
                           ...input,
                           autoComplete: "off"
@@ -116,7 +118,7 @@ class AccountForm extends Component {
                   size="large"
                   color="secondary"
                   disabled={
-                    false // @TODO: This prop should depend on pristine or valid state of form
+                    pristine || invalid
                   }
                 >
                   {this.state.formToggle ? "Enter" : "Create Account"}
@@ -126,7 +128,7 @@ class AccountForm extends Component {
                     className={classes.formToggle}
                     type="button"
                     onClick={() => {
-                      // @TODO: Reset the form on submit
+                      form.reset();
                       this.setState({
                         formToggle: !this.state.formToggle
                       });

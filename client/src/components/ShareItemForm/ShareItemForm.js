@@ -88,8 +88,7 @@ class ShareForm extends Component {
             }}
             validate={updatePreview}
             render={({ input, meta, handleSubmit }) => (
-              <form onSubmit={handleSubmit}
-                onChange={e => updatePreview(e.target.name, e.target.value)}>
+              <form onSubmit={handleSubmit}>
 
                 <Typography variant="h4" className={classes.headText}>
                   Share. Borrow. Prosper.
@@ -129,13 +128,13 @@ class ShareForm extends Component {
 
                 {/* Item Name */}
                 <FormControl fullWidth>
-                  <InputLabel htmlFor="itemTitle">Name your Item</InputLabel>
+                  <InputLabel htmlFor="title">Name your Item</InputLabel>
                   <Field
-                    name="itemTitle"
+                    name="title"
                     render={({ input, meta }) => (
                       <div>
                         <Input
-                          id="itemTitle"
+                          id="title"
                           type="text"
                           className={classes.fieldLength}
                           inputProps={{
@@ -187,12 +186,14 @@ class ShareForm extends Component {
                 // helperText="Please select your tags"
                 // margin="normal"
                 >
-                  {tags.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                      <Checkbox />
-                      {option.label}
-                    </MenuItem>
-                  ))}
+                  {tags.map(option => {
+                    return (
+                      <MenuItem key={option.value} value={option.value}>
+                        <Checkbox />
+                        {option.label}
+                      </MenuItem>
+                    )
+                  })}
                 </TextField>
                 {/* )} // for using state */}
 
