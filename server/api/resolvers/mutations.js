@@ -12,8 +12,8 @@ function setCookie({ tokenName, token, res }) {
 }
 
 function generateToken(user, secret) {
-  const { id, email, fullname } = user; 
-  return jwt.sign({ id, email, fullname}, secret, {expiresIn: "2h"});
+  const { id, email, fullname } = user;
+  return jwt.sign({ id, email, fullname }, secret, { expiresIn: "2h" });
 }
 
 const mutationResolvers = app => ({
@@ -100,11 +100,11 @@ const mutationResolvers = app => ({
   },
   async addItem(
     parent,
-    {item},
-    {pgResource},
+    { item },
+    { pgResource, token },
     info
   ) {
-    const user = await jwt.decode(context.token, app.get("JWT_SECRET"));
+    const user = await jwt.decode(token, app.get("JWT_SECRET"));
     const newItem = await pgResource.saveNewItem({
       item,
       user,

@@ -14,6 +14,11 @@ import {
   Checkbox
 } from "@material-ui/core";
 
+import {
+  ADD_ITEM_MUTATION, ITEM_QUERY
+} from "../../apollo/queries";
+import { graphql, compose } from "react-apollo";
+
 const tags = [
   {
     value: "householdItems",
@@ -67,7 +72,6 @@ class ShareForm extends Component {
   }
   render() {
     const { classes, addItem } = this.props;
-    console.log(classes);
 
     return (
       <ItemPreviewContext.Consumer>
@@ -78,16 +82,18 @@ class ShareForm extends Component {
                 variables: {
                   item: {
                     imageurl: values.imageUrl,
-                    title: values.itemTitle,
-                    description: values.itemDesc,
-                    tags: values.tags
+                    title: values.title,
+                    description: values.description,
+                    tags: [{}]
                   }
                 }
               };
+              console.log("test", addItemValues, values)
               addItem(addItemValues)
             }}
             validate={updatePreview}
             render={({ input, meta, handleSubmit }) => (
+
               <form onSubmit={handleSubmit}>
 
                 <Typography variant="h4" className={classes.headText}>
@@ -202,6 +208,7 @@ class ShareForm extends Component {
                   variant="contained"
                   color="text-secondary"
                   size="medium"
+                  onClick={handleSubmit}
                 >
                   SHARE
                 </Button>
@@ -213,4 +220,18 @@ class ShareForm extends Component {
     );
   }
 }
-export default withStyles(styles)(ShareForm);
+const refetchQueries = [
+  {
+    query: ITEM_QUERY,
+  },
+];
+
+export default compose(
+  graphql(ADD_ITEM_MUTATION, {
+    options: {
+      refetchQueries,
+    },
+    name: "addItem",
+  }),
+  withStyles(styles),
+)(ShareForm);

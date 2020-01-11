@@ -3,7 +3,6 @@ import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import ShareItemForm from "../../components/ShareItemForm";
 import ShareItemPreview from "../../components/ShareItemPreview";
-import Typography from "@material-ui/core/Typography";
 import HeaderBar from "../../components/Header/Header";
 
 const Share = ({ classes }) => {

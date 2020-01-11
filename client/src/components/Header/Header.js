@@ -34,7 +34,7 @@ const HeaderBar = ({ classes }) => {
                 className={classes.homeButton}
                 color="inherit"
                 aria-label="home">
-                <img src={BoomtownLogo} className={classes.siteLogo} />
+                <img src={BoomtownLogo} className={classes.siteLogo} alt="back to home" />
               </IconButton>
             </Link>
           </div>
