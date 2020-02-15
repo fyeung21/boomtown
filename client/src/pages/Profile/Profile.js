@@ -7,7 +7,6 @@ import { Typography, Avatar, Card, CardContent } from "@material-ui/core";
 const Profile = ({ classes }) => {
   return (
     <div className={classes.background}>
-      <HeaderBar />
       <Card className={classes.card}>
         <CardContent>
           <div className={classes.cardContent}>

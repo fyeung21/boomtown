@@ -10,7 +10,8 @@ const styles = theme => ({
     paddingTop: 100,
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
-    gridGap: 80
+    gridGap: 80,
+    margin: '5rem auto 0 auto'
   }
 });
 

@@ -8,7 +8,6 @@ import HeaderBar from "../../components/Header/Header";
 const Share = ({ classes }) => {
   return (
     <div>
-      <HeaderBar />
       <div className={classes.shareContainer}>
         <ShareItemPreview className={classes.sharePreview} />
         <div className={classes.shareForm}>
