@@ -43,7 +43,7 @@ export const ITEM_QUERY = gql`
 
 export const ALL_ITEMS_QUERY = gql`
   query items($filter: ID) {
-    item(filter: $filter) {
+    items(filter: $filter) {
       ...ItemFields
     }
   }

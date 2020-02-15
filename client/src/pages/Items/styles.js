@@ -2,10 +2,15 @@ const styles = theme => ({
   background: {
     backgroundColor: "#262626"
   },
-  itemGrid: {
-    margin: 80,
+  flex: {
     display: "flex",
     justifyContent: "center"
+  },
+  itemGrid: {
+    paddingTop: 100,
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gridGap: 80
   }
 });
 

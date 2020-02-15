@@ -10,7 +10,9 @@ const ViewerProvider = ({ children }) => {
     {({ data, loading }) => {
 
       const viewer = data ? data.viewer : null;
-      console.log("viewer", viewer)
+      if (loading) {
+        console.log("loading")
+      } else if (data) { console.log("viewer", data) }
       return (
         <ViewerContext.Provider value={{ viewer, loading }}>
           {children}

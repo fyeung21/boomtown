@@ -9,15 +9,19 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
+import dateFormatHelper from "../../pages/Items/dateFormatHelper";
 
 const ItemCard = ({
   imageUrl,
   itemOwner,
   itemTitle,
   itemDesc,
-  date,
+  created,
   classes
 }) => {
+
+  const dateCreated = dateFormatHelper(created)
+
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -52,7 +56,7 @@ const ItemCard = ({
                 component="p"
                 className={classes.text}
               >
-                {date}date
+                {dateCreated}
               </Typography>
             </div>
           </div>

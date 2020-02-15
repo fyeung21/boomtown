@@ -5,6 +5,7 @@ import Items from '../pages/Items';
 import Share from '../pages/Share';
 import Profile from '../pages/Profile';
 import ViewerContext from '../context/ViewerProvider';
+import HeaderBar from '../components/Header/Header';
 
 
 const Routes = () => {
@@ -23,6 +24,7 @@ const Routes = () => {
         } else {
           return (
             <Fragment>
+              <HeaderBar />
               <Switch>
                 <Route path="/items" component={Items} />
                 <Route path="/share" component={Share} />
