@@ -1,33 +1,11 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
-import { ITEM_QUERY, ALL_ITEMS_QUERY } from "../../apollo/queries";
-import { graphql, compose } from "react-apollo";
 import ItemCard from '../../components/ItemCard';
 
 const Items = (props) => {
 
-  console.log("props", props)
-  const { getAllItems, classes } = props;
-  const { loading, items, error } = getAllItems;
-
-
-  console.log("all", loading, error, items);
-
-  const getItemsNow = getAllItems.items;
-
-  console.log("items", getItemsNow)
-
-  if (!loading) {
-    const getMappedItems = getItemsNow.map(item => {
-      console.log(item)
-      return (
-        item.title
-      )
-    })
-
-    console.log(getMappedItems)
-  }
+  const { classes, items } = props;
 
   return (
     <div className={classes.background}>
@@ -53,18 +31,4 @@ const Items = (props) => {
   );
 };
 
-const refetchQueries = [
-  {
-    query: ITEM_QUERY,
-  },
-];
-
-export default compose(
-  graphql(ALL_ITEMS_QUERY, {
-    options: {
-      refetchQueries,
-    },
-    name: "getAllItems",
-  }),
-  withStyles(styles),
-)(Items);
+export default withStyles(styles)(Items);

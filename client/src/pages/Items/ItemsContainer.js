@@ -1,13 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 import Items from "./Items";
 // import FullScreenLoader from '../../components/FullScreenLoader';
-// import { Query } from 'react-apollo';
-// import { } from '../../apollo/queries';
+import { Query } from 'react-apollo';
+import { ALL_ITEMS_QUERY } from '../../apollo/queries';
 
-class ItemsContainer extends Component {
-  render() {
-    return <Items />;
-  }
+const ItemsContainer = () => {
+  return (
+    <Query query={ALL_ITEMS_QUERY}>
+      {({ loading, error, data }) => {
+        if (loading) return null;
+        if (error) return `Error!`;
+        return <Items items={data.items} />
+      }}
+    </Query>
+  );
 }
 
 export default ItemsContainer;
