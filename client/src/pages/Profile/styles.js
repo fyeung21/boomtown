@@ -16,6 +16,13 @@ const styles = theme => ({
   },
   sharedItems: {
     margin: "40px 80px"
+  },
+  itemGrid: {
+    paddingTop: 100,
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gridGap: 80,
+    margin: '5rem auto 0 auto'
   }
 });
 
