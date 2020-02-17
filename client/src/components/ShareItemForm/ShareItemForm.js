@@ -11,10 +11,9 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import {
-  ADD_ITEM_MUTATION
-} from "../../apollo/queries";
+import { ADD_ITEM_MUTATION } from "../../apollo/queries";
 import { graphql, compose } from "react-apollo";
+import { Redirect } from 'react-router';
 
 import HomeIcon from "@material-ui/icons/HomeOutlined";
 import ToolIcon from "@material-ui/icons/BuildOutlined";
@@ -33,11 +32,12 @@ class ShareForm extends Component {
       value: ''
     };
   }
-  onSubmit() {
-    console.log("test");
-  }
   render() {
     const { classes, addItem, tags } = this.props;
+
+    if (this.state.redirect) {
+      return <Redirect to='/item' />
+    }
 
     return (
       <ItemPreviewContext.Consumer>
@@ -60,7 +60,10 @@ class ShareForm extends Component {
                 }
               };
               await addItem(addItemValues)
-              resetPreview()
+              resetPreview();
+              this.setState({
+                redirect: true
+              })
             }}
             validate={updatePreview}
             render={({ input, meta, handleSubmit, reset }) => (
