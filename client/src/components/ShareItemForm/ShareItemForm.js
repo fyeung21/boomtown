@@ -8,14 +8,11 @@ import {
   InputLabel,
   Button,
   FormControl,
-  TextField,
-  MenuItem,
   Typography,
-  Checkbox
 } from "@material-ui/core";
 
 import {
-  ADD_ITEM_MUTATION, ALL_USER_ITEMS_QUERY
+  ADD_ITEM_MUTATION
 } from "../../apollo/queries";
 import { graphql, compose } from "react-apollo";
 
@@ -44,9 +41,9 @@ class ShareForm extends Component {
 
     return (
       <ItemPreviewContext.Consumer>
-        {({ state, updatePreview, resetPreview }) => (
+        {({ updatePreview, resetPreview }) => (
           <Form
-            onSubmit={values => {
+            onSubmit={async values => {
 
               let itemTags = tags.filter(tag => {
                 return values.tags.indexOf(tag.title) !== -1
@@ -62,10 +59,11 @@ class ShareForm extends Component {
                   }
                 }
               };
-              addItem(addItemValues)
+              await addItem(addItemValues)
+              resetPreview()
             }}
             validate={updatePreview}
-            render={({ input, meta, handleSubmit }) => (
+            render={({ input, meta, handleSubmit, reset }) => (
 
               <form onSubmit={handleSubmit}>
 
