@@ -14,7 +14,7 @@ import {
   VIEWER_QUERY
 } from "../../apollo/queries";
 import { graphql, compose } from "react-apollo";
-// import validate from "./helpers/validation";
+import validate from "./helpers/validation";
 
 import styles from "./styles";
 class AccountForm extends Component {
@@ -35,20 +35,16 @@ class AccountForm extends Component {
               user: values
             }
           };
-          if (this.state.formToggle) {
-            login(logValues);
-          } else {
-            signup(logValues);
-          }
           this.state.formToggle ? login(logValues) : signup(logValues)
         }}
-        render={({ input, meta, handleSubmit, pristine, invalid, form }) => (
+        validate={validate}
+        render={({ handleSubmit, pristine, invalid, form }) => (
           <form onSubmit={handleSubmit} className={classes.accountForm}>
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
                 <InputLabel htmlFor="fullname">Username</InputLabel>
                 <Field
-                  name="fullName"
+                  name="fullname"
                   render={({ input, meta }) => (
                     <div>
                       <Input
@@ -61,6 +57,7 @@ class AccountForm extends Component {
                         }}
                         value={input.value}
                       />
+                      {meta.error && meta.touched && <span>{meta.error}</span>}
                     </div>
                   )}
                 />
@@ -81,6 +78,7 @@ class AccountForm extends Component {
                       }}
                       value={input.value}
                     />
+                    {meta.error && meta.touched && <span>{meta.error}</span>}
                   </div>
                 )}
               />
@@ -100,6 +98,7 @@ class AccountForm extends Component {
                       }}
                       value={input.value}
                     />
+                    {meta.error && meta.touched && <span>{meta.error}</span>}
                   </div>
                 )}
               />
@@ -130,7 +129,8 @@ class AccountForm extends Component {
                     onClick={() => {
                       form.reset();
                       this.setState({
-                        formToggle: !this.state.formToggle
+                        formToggle: !this.state.formToggle,
+                        error: null,
                       });
                     }}
                   >
@@ -142,7 +142,7 @@ class AccountForm extends Component {
               </Grid>
             </FormControl>
             <Typography className={classes.errorMessage}>
-              {this.state.error ? "sign in" : "cannot login"}
+              {this.state.error && this.state.formToggle}
             </Typography>
           </form>
         )}
