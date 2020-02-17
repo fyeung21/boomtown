@@ -9,6 +9,9 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import { Link } from "react-router-dom";
+import { LOGOUT_MUTATION } from "../../apollo/queries";
+import { Mutation } from "react-apollo";
+import client from "../../apollo";
 
 
 const HeaderBar = ({ classes }) => {
@@ -67,13 +70,23 @@ const HeaderBar = ({ classes }) => {
             >
               <MenuItem onClick={handleClose}>
                 <Link to="/profile/:userId" className={classes.link}>
-                  <FingerprintIcon className={classes.icon} />Profile
+                  <FingerprintIcon className={classes.icon} />
+                  Profile
                 </Link>
               </MenuItem>
 
-              <MenuItem onClick={handleClose}>
-                <PowerSettingsNewIcon className={classes.icon} />Logout
-                </MenuItem>
+              <Mutation
+                mutation={LOGOUT_MUTATION}
+                onCompleted={() => client.resetStore()}
+              >
+                {logoutMutation => (
+                  <MenuItem onClick={logoutMutation}>
+                    <PowerSettingsNewIcon className={classes.icon} />
+                    Log out
+                  </MenuItem>
+                )}
+
+              </Mutation>
             </Menu>
 
           </div>
@@ -82,5 +95,12 @@ const HeaderBar = ({ classes }) => {
     </div>
   );
 };
+
+// export default compose(
+//   graphql(LOGOUT_MUTATION, {
+//     name: "logoutMutation",
+//   }),
+//   withStyles(styles),
+// )(HeaderBar);
 
 export default withStyles(styles)(HeaderBar);
