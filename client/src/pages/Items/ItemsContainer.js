@@ -10,7 +10,13 @@ const ItemsContainer = () => {
       {({ loading, error, data }) => {
         if (loading) return null;
         if (error) return `Error!`;
-        return <Items items={data.items} />
+
+        let orderItems = data.items.reverse();
+        let items = orderItems.map(item => {
+          item.tags = item.tags.map(tag => { return tag.title })
+          return item
+        });
+        return <Items items={items} />
       }}
     </Query>
   );

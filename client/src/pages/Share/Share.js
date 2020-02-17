@@ -3,15 +3,14 @@ import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import ShareItemForm from "../../components/ShareItemForm";
 import ShareItemPreview from "../../components/ShareItemPreview";
-import HeaderBar from "../../components/Header/Header";
 
-const Share = ({ classes }) => {
+const Share = ({ classes, tags }) => {
   return (
     <div>
       <div className={classes.shareContainer}>
         <ShareItemPreview className={classes.sharePreview} />
         <div className={classes.shareForm}>
-          <ShareItemForm />
+          <ShareItemForm tags={tags} />
         </div>
       </div>
     </div>

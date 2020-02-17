@@ -16,6 +16,7 @@ const ItemCard = ({
   itemOwner,
   itemTitle,
   itemDesc,
+  itemTags,
   created,
   classes
 }) => {
@@ -68,6 +69,13 @@ const ItemCard = ({
             </Typography>
             <Typography variant="body2" component="p">
               {itemDesc}
+            </Typography>
+          </div>
+
+          {/* Item Tags */}
+          <div>
+            <Typography variant="body2" component="p">
+              {itemTags.join(', ')}
             </Typography>
           </div>
         </CardContent>

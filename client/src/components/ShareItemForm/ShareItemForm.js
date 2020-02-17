@@ -15,52 +15,21 @@ import {
 } from "@material-ui/core";
 
 import {
-  ADD_ITEM_MUTATION, ITEM_QUERY
+  ADD_ITEM_MUTATION, ALL_USER_ITEMS_QUERY
 } from "../../apollo/queries";
 import { graphql, compose } from "react-apollo";
 
-const tags = [
-  {
-    value: "householdItems",
-    label: "Household Items"
-  },
-  {
-    value: "tools",
-    label: "Tools"
-  },
-  {
-    value: "electronics",
-    label: "Electronics"
-  },
-  {
-    value: "physicalMedia",
-    label: "Physical Media"
-  },
-  {
-    value: "sportingGoods",
-    label: "Sporting Goods"
-  },
-  {
-    value: "physicalMedia",
-    label: "Physical Media"
-  },
-  {
-    value: "musicalInstruments",
-    label: "Musical Instruments"
-  },
-  {
-    value: "recreational",
-    label: "Recreational"
-  }
-];
+import HomeIcon from "@material-ui/icons/HomeOutlined";
+import ToolIcon from "@material-ui/icons/BuildOutlined";
+import ElectronicsIcon from "@material-ui/icons/DevicesOutlined";
+import SportsIcon from "@material-ui/icons/SportsOutlined";
+import MusicIcon from "@material-ui/icons/MusicNoteOutlined";
+import BooksIcon from "@material-ui/icons/BookOutlined";
+import HappinessIcon from "@material-ui/icons/TagFacesOutlined";
 
-// const [addTag, setTags] = React.useState("Add some Tags");
-
-//     const handleChange = event => {
-//       setTags(event.target.value);
-//     };
 
 class ShareForm extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -71,24 +40,28 @@ class ShareForm extends Component {
     console.log("test");
   }
   render() {
-    const { classes, addItem } = this.props;
+    const { classes, addItem, tags } = this.props;
 
     return (
       <ItemPreviewContext.Consumer>
         {({ state, updatePreview, resetPreview }) => (
           <Form
             onSubmit={values => {
+
+              let itemTags = tags.filter(tag => {
+                return values.tags.indexOf(tag.title) !== -1
+              })
+
               const addItemValues = {
                 variables: {
                   item: {
                     imageurl: values.imageUrl,
                     title: values.title,
                     description: values.description,
-                    tags: [{}]
+                    tags: itemTags
                   }
                 }
               };
-              console.log("test", addItemValues, values)
               addItem(addItemValues)
             }}
             validate={updatePreview}
@@ -99,8 +72,6 @@ class ShareForm extends Component {
                 <Typography variant="h4" className={classes.headText}>
                   Share. Borrow. Prosper.
                 </Typography>
-
-                {/* {!this.state.formToggle && ( */}
 
                 {/* Image Upload*/}
                 <FormControl>
@@ -177,31 +148,81 @@ class ShareForm extends Component {
                 </FormControl>
 
                 {/* Add Tags */}
-                <TextField
-                  // id="addTags"
-                  select
-                  label="Add some Tags"
-                  className={classes.fieldLength}
-                // value={addTag}
-                // onChange={handleChange}
-                // SelectProps={{
-                //   MenuProps: {
-                //     className: classes.menu
-                //   }
-                // }}
-                // helperText="Please select your tags"
-                // margin="normal"
-                >
-                  {tags.map(option => {
-                    return (
-                      <MenuItem key={option.value} value={option.value}>
-                        <Checkbox />
-                        {option.label}
-                      </MenuItem>
-                    )
-                  })}
-                </TextField>
-                {/* )} // for using state */}
+                <FormControl className={classes.formControl}>
+                  <Typography variant="body1">Add Tags: </Typography>
+                  <div className={classes.tags}>
+                    <label className={classes.tagIcons}>
+                      <Field
+                        name="tags"
+                        component="input"
+                        type="checkbox"
+                        value="Household Items"
+                      />
+                      Household Items
+                          <HomeIcon />
+                    </label>
+                    <label className={classes.tagIcons}>
+                      <Field
+                        name="tags"
+                        component="input"
+                        type="checkbox"
+                        value="Tools"
+                      />
+                      Tools
+                          <ToolIcon />
+                    </label>
+                    <label className={classes.tagIcons}>
+                      <Field
+                        name="tags"
+                        component="input"
+                        type="checkbox"
+                        value="Electronics"
+                      />
+                      Electronics
+                          <ElectronicsIcon />
+                    </label>
+                    <label className={classes.tagIcons}>
+                      <Field
+                        name="tags"
+                        component="input"
+                        type="checkbox"
+                        value="Musical Instruments"
+                      />
+                      Musical Instruments
+                          <MusicIcon />
+                    </label>
+                    <label className={classes.tagIcons}>
+                      <Field
+                        name="tags"
+                        component="input"
+                        type="checkbox"
+                        value="Books"
+                      />
+                      Books
+                          <BooksIcon />
+                    </label>
+                    <label className={classes.tagIcons}>
+                      <Field
+                        name="tags"
+                        component="input"
+                        type="checkbox"
+                        value="Sports Goods"
+                      />
+                      Sports Goods
+                          <SportsIcon />
+                    </label>
+                    <label className={classes.tagIcons}>
+                      <Field
+                        name="tags"
+                        component="input"
+                        type="checkbox"
+                        value="Happiness"
+                      />
+                      Happiness
+                          <HappinessIcon />
+                    </label>
+                  </div>
+                </FormControl>
 
                 {/* Share Button */}
                 <Button
@@ -220,17 +241,9 @@ class ShareForm extends Component {
     );
   }
 }
-const refetchQueries = [
-  {
-    query: ITEM_QUERY,
-  },
-];
 
 export default compose(
   graphql(ADD_ITEM_MUTATION, {
-    options: {
-      refetchQueries,
-    },
     name: "addItem",
   }),
   withStyles(styles),
