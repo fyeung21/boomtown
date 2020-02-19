@@ -1,9 +1,10 @@
 const styles = theme => ({
   background: {
-    backgroundColor: "#262626"
+    backgroundColor: "#262626",
+    paddingTop: 80
   },
   card: {
-    margin: "40px 80px"
+    margin: "0 80px"
   },
   cardContent: {
     margin: 40
@@ -18,11 +19,11 @@ const styles = theme => ({
     margin: "40px 80px"
   },
   itemGrid: {
-    paddingTop: 100,
+    paddingTop: 60,
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
     gridGap: 80,
-    margin: '5rem auto 0 auto'
+    margin: '0 2rem'
   }
 });
 

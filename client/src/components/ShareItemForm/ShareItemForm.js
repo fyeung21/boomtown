@@ -9,6 +9,7 @@ import {
   Button,
   FormControl,
   Typography,
+  TextField
 } from "@material-ui/core";
 
 import { ADD_ITEM_MUTATION } from "../../apollo/queries";
@@ -41,7 +42,7 @@ class ShareForm extends Component {
 
     return (
       <ItemPreviewContext.Consumer>
-        {({ updatePreview, resetPreview }) => (
+        {({ state, updatePreview, resetPreview }) => (
           <Form
             onSubmit={async values => {
 
@@ -77,28 +78,31 @@ class ShareForm extends Component {
                 {/* Image Upload*/}
                 <FormControl>
                   <Field
-                    name="imageUrl"
-                    render={({ input }) => (
+                    name="imageurl"
+                    render={({ input, meta }) => (
                       <div>
-                        <input
-                          accept="image/*"
-                          className={classes.imageInput}
-                          id="contained-button-file"
-                          multiple
-                          type="file"
+                        {/* <Input
+                          id="imageurl"
+                          type="text"
+                          className={classes.fieldLength}
+                          inputProps={{
+                            ...input,
+                            autoComplete: "off"
+                          }}
+                          value={input.value}
+                        /> */}
+                        <TextField
+                          className={classes.fieldLength}
+                          type="text"
+                          margin="normal"
+                          label="Paste image URL here"
+                          fullWidth
                           inputProps={{
                             ...input,
                             autoComplete: "off"
                           }}
                           value={input.value}
                         />
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          className={classes.selectImage}
-                        >
-                          SELECT AN IMAGE
-                      </Button>
                       </div>
                     )}
                   />
@@ -106,15 +110,15 @@ class ShareForm extends Component {
 
                 {/* Item Name */}
                 <FormControl fullWidth>
-                  <InputLabel htmlFor="title">Name your Item</InputLabel>
                   <Field
                     name="title"
                     render={({ input, meta }) => (
                       <div>
-                        <Input
-                          id="title"
+                        <TextField
                           type="text"
-                          className={classes.fieldLength}
+                          margin="normal"
+                          label="Name your item"
+                          fullWidth
                           inputProps={{
                             ...input,
                             autoComplete: "off"
@@ -127,16 +131,17 @@ class ShareForm extends Component {
                 </FormControl>
 
                 {/* Item Description */}
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="description">Describe your Item</InputLabel>
+                <FormControl>
                   <Field
                     name="description"
                     render={({ input, meta }) => (
                       <div>
-                        <Input
-                          id="description"
-                          type="text"
+                        <TextField
                           className={classes.fieldLength}
+                          type="text"
+                          margin="normal"
+                          label="Describe your Item"
+                          fullWidth
                           inputProps={{
                             ...input,
                             autoComplete: "off"
@@ -149,7 +154,7 @@ class ShareForm extends Component {
                 </FormControl>
 
                 {/* Add Tags */}
-                <FormControl className={classes.formControl}>
+                <FormControl>
                   <Typography variant="body1">Add Tags: </Typography>
                   <div className={classes.tags}>
                     <label className={classes.tagIcons}>

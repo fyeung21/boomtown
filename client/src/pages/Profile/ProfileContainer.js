@@ -26,7 +26,7 @@ const ProfileContainer = () => {
                   return item
                 });
 
-                return <Profile items={items} />
+                return <Profile items={items} data={data} />
               }}
             </Query>
           )

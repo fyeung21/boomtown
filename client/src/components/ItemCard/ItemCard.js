@@ -29,7 +29,7 @@ const ItemCard = ({
         {/* Card Image */}
         <CardMedia
           className={classes.media}
-          image={imageUrl}
+          image={imageUrl || 'https://via.placeholder.com/300x150.png?text=No+Image+Available'}
           title="your image"
         />
       </CardActionArea>

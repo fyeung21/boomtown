@@ -1,9 +1,9 @@
 const styles = theme => ({
   card: {
     width: 400,
-    height: 500,
-    marginRight: 50,
+    height: 550,
     position: "relative"
+
   },
   cardContainer: {
     margin: 10

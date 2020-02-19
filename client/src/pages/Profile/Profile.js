@@ -6,7 +6,8 @@ import ItemCard from "../../components/ItemCard";
 
 const Profile = (props) => {
 
-  const { classes, items } = props;
+  const { classes, items, data } = props;
+
 
   return (
     <div className={classes.background}>
@@ -26,12 +27,12 @@ const Profile = (props) => {
                 color="textSecondary"
                 gutterBottom
               >
-                Username
+                {data.user.fullname}
               </Typography>
             </div>
 
             <Typography variant="h6">
-              {"1"} items shared {"0"} items borrowed
+              {items.length} item(s) shared {"0"} items borrowed
             </Typography>
 
             <Typography variant="body2" component="p">
